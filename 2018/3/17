@@ -1,0 +1,94 @@
+package wordcount;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.io.File;  
+  
+/*
+        File file = new File("E:\\Workspaces\\MyEclipse 6.5\\spring_source");//指定统计目录  
+        int count = getLineCount(file);  
+        System.out.println(count);  
+    }  
+  
+    static int count = 0;  
+    public static int getLineCount(File file){  
+        for(File f:file.listFiles()){  
+            //判断是否为目录，若是则递归调用  递归调用的入口  
+            if(f.isDirectory()){  
+                getLineCount(f);  
+            }  
+            //判断是否为java文件，若是则统计该文件的行数 递归调用的出口  
+            else if(f.isFile()&&f.getName().endsWith(".java")){  
+                count+=FileUtils.getLineCount(f);  
+            }  
+        }  
+          
+        return count;  
+    }  */
+      
+
+	/*
+	 * InputStreamReader(new FileInputStream(绝对文件名))进行文件的读取
+	 * BufferedReader(文件读取)调用readLine()的方法
+	 */
+
+	public class wc {
+	    static  int countChar = 0;
+	    static  int countWord = 0;
+	    static  int countLine = 0;
+		  public static void getWC(File file) throws IOException {  
+			  File[] f = file.listFiles();
+			  System.out.println(file.getAbsolutePath());
+			  for(int i=0; i<f.length; i++){  
+		            //listFiles()方法是返回某个目录下所有文件和目录的绝对路径，返回的是File数组 
+		            if(f[i].isDirectory()){  
+		                getWC(f[i]);  
+		            }  
+		            //判断是否为.c文件，若是则统计该文件的行数 递归调用的出口  
+		            else if(f[i].isFile()&&f[i].getName().endsWith(".c")){  
+		            	InputStreamReader isr = new InputStreamReader(new FileInputStream(f[i].getAbsolutePath()));
+		          	  //InputStreamReader将字符流向字节流转换。
+		          	  //InputStreamReader isr = new InputStreamReader(new FileInputStream(绝对文件名));
+		          	  //用来读取文件中的数据
+		          	  BufferedReader br = new BufferedReader(isr);//使用缓冲区，可以使用缓冲区的read(),readLine()方法；
+		          	  /*readLine每次读取一行，read()读取整个文件，
+		          	           读入的数据要注意有/r或/n或/r/n
+		          	  */
+		          	  String s=null;
+		          	  while((s =br.readLine())!= null)//不可用read()=-1判断！！因为会跳过行首第一个字符！！
+		          		  
+		          	  {
+		          	   System.out.print(s+"\n");
+		          	   countChar += s.length();//.length()
+		          	   //length() 方法用于返回字符串的长度。
+		          	   //长度等于字符串中 16 位 Unicode 代码单元的数量。
+		          	   //是针对字符串的，一个字符就占一个长度，无论这个字符是中文还是英文
+		          	   //countWord += s.split(",").length;
+		          	   countWord += s.split(" |,").length;//split() 方法用于把一个字符串分割成字符串数组,字符串数组的长度，就是单词个数
+		          	   countLine++;//因为是按行读取，所以每次增加一即可计算出行的数目
+		          	  }
+		          	  isr.close();//关闭文件 C:\Users\liaotaiwei\Desktop\test.c
+		          	  System.out.println("char cont "+countChar);
+		          	  System.out.println("word count "+countWord );
+		          	  System.out.println("line count "+countLine); 
+		          	  }  
+		            }  
+		        }  
+		          
+		   
+
+	 public static void main(String[] args) throws Exception {
+	 
+	  Scanner input = new Scanner(System.in);
+	  System.out.println("please input filePath or folderPath:");
+	  String path = input.next();	
+	  System.out.println(path);
+	  File file = new File(path);
+	  getWC(file);
+	}
+
+	}
