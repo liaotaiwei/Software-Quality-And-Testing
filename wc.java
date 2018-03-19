@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.LinkedList;
 
 public class wc {
-    //¼ÆÊı
+    //è®¡æ•°
     static int countChar = 0;
     static int countWord = 0;
     static int countLine = 0;
@@ -12,23 +12,23 @@ public class wc {
     static int countSpaceLine = 0;
     static int countComment = 0;
 
-    //ÃüÁîĞĞ²ÎÊı±êÖ¾£¬Èç¹ûÒªÑ¹ËõÄÚ´æ£¬¿ÉÒÔ¿¼ÂÇÊ¹ÓÃÏñÎ¢»úÔ­ÀíÖĞµÄ±êÖ¾Î»ºÙºÙ£¬µ«Õâ¶ù¾ÍËãÁË
+    //å‘½ä»¤è¡Œå‚æ•°æ ‡å¿—
     static int cFlag = 0;
     static int wFlag = 0;
     static int lFlag = 0;
     static int aFlag = 0;
     static int eFlag = 0;
     static int sFlag = 0;
-    static int isStarComment=0;//ÊÇ/**/×¢ÊÍ
-    //Â·¾¶
+    static int isStarComment=0;//æ˜¯å¦æ˜¯/**/æ³¨é‡Š
+    //è·¯å¾„
     static String inputPath = "";
     static String outputPath = "result.txt";
     static String stopListPath = "";
     static String[] stopList;
 
-    //ÅĞ¶ÏÊÇ·ñÊÇ×¢ÊÍĞĞ
+    //åˆ¤æ–­æ˜¯å¦æ˜¯æ³¨é‡Šè¡Œ
     public static boolean isCommentLine(String s){
-        //±éÀúÕûĞĞ£¬Ñ°ÕÒ×¢ÊÍ·ûºÅ
+        //éå†æ•´è¡Œï¼Œå¯»æ‰¾æ³¨é‡Šç¬¦å·
         for(int i = 0; i < s.length() - 1; i++){
             if(s.charAt(i) == '/'){
                 if(s.charAt(i + 1) == '/'){
@@ -43,7 +43,7 @@ public class wc {
         return false;
     }
  public static boolean isCommentLineEnd(String s){
-        //±éÀúÕûĞĞ£¬Ñ°ÕÒ*/
+        //éå†æ•´è¡Œï¼Œå¯»æ‰¾*/
         for(int i = 0; i < s.length() - 1; i++){
             if(s.charAt(i) == '/'){
                 if(s.charAt(i + 1) == '*'&&isStarComment==1){
@@ -55,10 +55,10 @@ public class wc {
         return false;
     }
 
-    //ÅĞ¶ÏÊÇ·ñÊÇ¿ÕĞĞ
+    //åˆ¤æ–­æ˜¯å¦æ˜¯ç©ºè¡Œ
     public static boolean isSpaceLine(String s){
         int nChar = 0;
-        //±éÀúÕûĞĞ£¬¿´ÊÇ·ñÊÇ¸ñÊ½¿ØÖÆ·û
+        //éå†æ•´è¡Œï¼Œçœ‹æ˜¯å¦æ˜¯æ ¼å¼æ§åˆ¶ç¬¦
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) != ' ' && s.charAt(i) != '\n' && s.charAt(i) != '\r' && s.charAt(i) != '\t'){
                 nChar++;
@@ -70,7 +70,7 @@ public class wc {
         return true;
     }
 
-    //ÅĞ¶ÏÊÇ·ñÔÚÍ£ÓÃ´Ê±íÖĞ
+    //åˆ¤æ–­æ˜¯å¦åœ¨åœç”¨è¯è¡¨ä¸­
     public static boolean isInStopList(String s){
         for(int i = 0; i < stopList.length; i++){
             if(s.equals(stopList[i])){
@@ -80,9 +80,9 @@ public class wc {
         return false;
     }
 
-    //¶ÁÈ¡Í£ÓÃ´Ê±í
+    //è¯»å–åœç”¨è¯è¡¨
     public static void parseStopList(File file) throws IOException{
-        //¶ÁÈ¡Í£ÓÃ´ÊÎÄ¼ş
+        //è¯»å–åœç”¨è¯æ–‡ä»¶
         InputStreamReader isr = new InputStreamReader(new FileInputStream(file.getAbsolutePath()));
         BufferedReader br = new BufferedReader(isr);
         String s = br.readLine();
@@ -125,26 +125,26 @@ public class wc {
                 else{
                     countWord += tStr.length;
                 }
-                //ÅĞ¶Ï´ÊÊÇ·ñÔÚÍ£ÓÃ´Ê±íÖĞ
+                //åˆ¤æ–­è¯æ˜¯å¦åœ¨åœç”¨è¯è¡¨ä¸­
                 countLine++;
             }
             isr.close();
-            //ÖØ¶¨Ïòµ½ÎÄ¼ş
+            //é‡å®šå‘åˆ°æ–‡ä»¶
             String iPath = file.getAbsolutePath();
             if(cFlag == 1){
-                System.out.println(iPath + "£¬×ÖÊıÊı£º" + countChar);
+                System.out.println(iPath + "ï¼Œå­—æ•°æ•°ï¼š" + countChar);
                 countChar = 0;
             }
             if(wFlag == 1){
-                System.out.println(iPath + "£¬µ¥´ÊÊı£º" + countWord);
+                System.out.println(iPath + "ï¼Œå•è¯æ•°ï¼š" + countWord);
                 countWord = 0;
             }
             if(lFlag == 1){
-                System.out.println(iPath + "£¬ĞĞÊı£º" + countLine);
+                System.out.println(iPath + "ï¼Œè¡Œæ•°ï¼š" + countLine);
                 countLine = 0;
             }
             if(aFlag == 1){
-                System.out.println(iPath + "£¬´úÂëĞĞ/¿ÕĞĞ/×¢ÊÍĞĞ£º" + countCodeLine + "/" + countSpaceLine + "/" + countComment);
+                System.out.println(iPath + "ï¼Œä»£ç è¡Œ/ç©ºè¡Œ/æ³¨é‡Šè¡Œï¼š" + countCodeLine + "/" + countSpaceLine + "/" + countComment);
                 countCodeLine = countSpaceLine = countComment = 0;
             }
         }
@@ -152,7 +152,7 @@ public class wc {
 
 
     public static void main(String[] args) throws IOException, ParseException {
-        //½âÎö²ÎÊıÁĞ±í
+        //è§£æå‚æ•°åˆ—è¡¨
         for(int i = 0; i < args.length; i++){
             if(args[i].equals("-c")){
                 cFlag = 1;
@@ -169,42 +169,42 @@ public class wc {
             else if(args[i].equals("-s")){
                 sFlag = 1;
             }
-            //¶ÁÈ¡Í£ÓÃ´Ê±í
+            //è¯»å–åœç”¨è¯è¡¨
             else if(args[i].equals("-e")){
-                //Íùºó¿´Ò»Î»
+                //å¾€åçœ‹ä¸€ä½
                 stopListPath = args[i + 1];
                 i++;
                 eFlag = 1;
-                //Èç¹û²»ÊÇTXTÎÄ¼ş£¬Ôò¾¯¸æ³ö´í
+                //å¦‚æœä¸æ˜¯TXTæ–‡ä»¶ï¼Œåˆ™è­¦å‘Šå‡ºé”™
                 if(!stopListPath.endsWith(".txt")){
                     System.out.println("Error: No stop list!");
                 }
                 File stopFile = new File(stopListPath);
                 parseStopList(stopFile);
             }
-            //¶ÁÈ¡Êä³öÂ·¾¶
+            //è¯»å–è¾“å‡ºè·¯å¾„
             else if(args[i].equals("-o")){
-                //Íùºó¿´Ò»Î»
+                //å¾€åçœ‹ä¸€ä½
                 outputPath = args[i + 1];
                 i++;
                 if(!outputPath.endsWith(".txt")){
                     System.out.println("Error: No output file!");
                 }
             }
-            //¶ÁÈ¡ÊäÈëÎÄ¼şÂ·¾¶
+            //è¯»å–è¾“å…¥æ–‡ä»¶è·¯å¾„
             else{
                 inputPath = args[i];
             }
         }
         System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(outputPath)), true));
         File file = new File(inputPath);
-        //Èç¹ûÊÇÎÄ¼ş¼Ğ£¬Ôòµİ¹é´¦ÀíÏÂÃæµÄÎÄ¼ş
+        //å¦‚æœæ˜¯æ–‡ä»¶å¤¹ï¼Œåˆ™é€’å½’å¤„ç†ä¸‹é¢çš„æ–‡ä»¶
         if(sFlag == 1) {
             if (file.isDirectory()) {
-                //´¦ÀíÎÄ¼ş¼Ğ
+                //å¤„ç†æ–‡ä»¶å¤¹
                 LinkedList<File> list = new LinkedList<File>();
                 File[] files = file.listFiles();
-                //±éÀúÂ·¾¶£¬Èç¹ûÊÇ
+                //éå†è·¯å¾„ï¼Œå¦‚æœæ˜¯
                 for (File pFile : files) {
                     if (pFile.isDirectory()) {
                         list.add(pFile);
@@ -212,7 +212,7 @@ public class wc {
                         getWC(pFile);
                     }
                 }
-                //²»Í£´ÓÁĞ±íÖĞµ¯³ö£¬Èç¹ûÊÇÎÄ¼ş¾ÍgetWC£¬±¾ÖÊÉÏÊÇÒ»¸ö¿í¶ÈÓÅÏÈ±éÀú
+                //ä¸åœä»åˆ—è¡¨ä¸­å¼¹å‡ºï¼Œå¦‚æœæ˜¯æ–‡ä»¶å°±getWCï¼Œæœ¬è´¨ä¸Šæ˜¯ä¸€ä¸ªå®½åº¦ä¼˜å…ˆéå†
                 File tFile;
                 while (!list.isEmpty()) {
                     tFile = list.removeFirst();
@@ -230,7 +230,7 @@ public class wc {
         else{
             getWC(file);
         }
-        //ÖØ¶¨Ïò»Ø¿ØÖÆÌ¨
+        //é‡å®šå‘å›æ§åˆ¶å°
         System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream(FileDescriptor.out)), true));
     }
 }
